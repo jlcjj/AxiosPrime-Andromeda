@@ -8,29 +8,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.andromeda.apirest.moldels.Telefones;
-import com.andromeda.apirest.services.TelefoneServie;
+import com.andromeda.apirest.moldels.ContasReceber;
+import com.andromeda.apirest.services.ContasReceberService;
 
 import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping(value="/telefones")
-@Api(value="API REST Telefones")
+@RequestMapping(value="/contasreceber")
+@Api(value="API REST Contas Receber")
 @CrossOrigin(origins = "*")
-public class TelefonesResource {
-
-	@Autowired
-	TelefoneServie ts;
+public class ContasReceberResource {
 	
-
+	@Autowired
+	private ContasReceberService crs;
 	
 	@RequestMapping(value="/{id}" , method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Long id){
-		Telefones obj = ts.buscar(id);
 		
-		//List<Telefones> lista = new ArrayList<>();
-		
+		ContasReceber obj = crs.buscar(id);
+		//List<Clientes> lista = new ArrayList<>();
 		return ResponseEntity.ok().body(obj);
 	}
-	
 }

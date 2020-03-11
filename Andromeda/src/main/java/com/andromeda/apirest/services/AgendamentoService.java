@@ -3,20 +3,21 @@ package com.andromeda.apirest.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.andromeda.apirest.moldels.Telefones;
-import com.andromeda.apirest.repository.TelefonesRepository;
+import com.andromeda.apirest.moldels.Agendamento;
+import com.andromeda.apirest.repository.AgendamentoRepository;
 import com.andromeda.apirest.services.exception.ObjectNotFoundException;
 
 @Service
-public class TelefoneServie {
-	@Autowired
-	private TelefonesRepository tr;
+public class AgendamentoService {
 	
-	public Telefones buscar(Long id) {
-		Telefones obj = tr.findOne(id);
+	@Autowired
+	private AgendamentoRepository ar;
+	
+	public Agendamento buscar(Long id) {
+		Agendamento obj = ar.findOne(id);
 		if (obj == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado! id: " + id
-					+ ", Tipo: " + Telefones.class.getName());
+					+ ", Tipo: " + Agendamento.class.getName());
 		}
 		return obj;
 

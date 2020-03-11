@@ -23,5 +23,9 @@ public class ClienteService {
 
 	}
 	
+	public Clientes insert(Clientes obj) {
+		obj.setId(null);
+		return cr.save(obj);
+	}
 
 }
