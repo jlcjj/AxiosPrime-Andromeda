@@ -2,6 +2,7 @@ package com.andromeda.apirest.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.andromeda.apirest.dto.AgendamentoDTO;
 import com.andromeda.apirest.moldels.Agendamento;
 import com.andromeda.apirest.services.AgendamentoService;
 
@@ -58,9 +60,10 @@ public class AgendamentoResource {
 		return ResponseEntity.noContent().build();
 	}
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Agendamento>> findAll(){
-		
+	public ResponseEntity<List<AgendamentoDTO>> findAll(){
+
 		List<Agendamento> list = as.findAll();
-		return ResponseEntity.ok().body(list);
+		List<AgendamentoDTO> listDto = list.stream().map(obj -> new AgendamentoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 }
