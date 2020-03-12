@@ -1,5 +1,7 @@
 package com.andromeda.apirest.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,10 @@ public class ClienteService {
 			throw new DataIntegrityException("Não é possivel excluir um Cliente que possui dados filhos;");
 		}
 		
+		
+	}
+	public List<Clientes> findAll(){
+		return cr.findAll();
 		
 	}
 	
