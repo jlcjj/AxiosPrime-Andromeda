@@ -27,9 +27,9 @@ public class ClientesResource {
 	private ClienteService cs;
 	
 	@RequestMapping(value="/{id}" , method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Long id){
+	public ResponseEntity<Clientes> find(@PathVariable Long id){
 		
-		Clientes obj = cs.buscar(id);
+		Clientes obj = cs.find(id);
 		//List<Clientes> lista = new ArrayList<>();
 		return ResponseEntity.ok().body(obj);
 	}
@@ -41,4 +41,20 @@ public class ClientesResource {
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Clientes obj, @PathVariable Long id){
+		obj.setId(id);
+		obj = cs.update(obj);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/{id}" , method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		
+		cs.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 }
