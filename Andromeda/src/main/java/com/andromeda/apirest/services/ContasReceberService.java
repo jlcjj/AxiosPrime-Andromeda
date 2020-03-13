@@ -4,11 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-
 import com.andromeda.apirest.moldels.ContasReceber;
-
 import com.andromeda.apirest.repository.ContasReceberRepository;
 import com.andromeda.apirest.services.exception.DataIntegrityException;
 import com.andromeda.apirest.services.exception.ObjectNotFoundException;
@@ -52,5 +53,9 @@ public class ContasReceberService {
 	public List<ContasReceber> findAll(){
 		return crr.findAll();
 		
+	}
+	public Page<ContasReceber> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return crr.findAll(pageRequest);
 	}
 }

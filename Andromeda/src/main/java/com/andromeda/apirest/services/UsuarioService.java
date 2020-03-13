@@ -4,8 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.andromeda.apirest.moldels.Clientes;
 import com.andromeda.apirest.moldels.Usuarios;
 import com.andromeda.apirest.repository.UsuariosRepository;
 import com.andromeda.apirest.services.exception.DataIntegrityException;
@@ -50,4 +54,9 @@ public class UsuarioService {
 		return ur.findAll();
 		
 	}
+	public Page<Usuarios> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return ur.findAll(pageRequest);
+	}
+	
 }
